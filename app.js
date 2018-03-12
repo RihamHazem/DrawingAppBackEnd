@@ -5,9 +5,10 @@ const logger = require('morgan');
 // var cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost:27017/os');
 
 const index = require('./routes/index');
-const users = require('./routes/users');
+// const users = require('./routes/users');
 const logIn = require('./routes/logIn');
 const signUp = require('./routes/signUp');
 
@@ -31,10 +32,10 @@ app.use(function(req, res, next) {
   next();
 });
 
-mongoose.connect('mongodb://localhost:27017/os');
+
 app.use('/', index);
-app.use('/users', users);
-app.use('/login', logIn);
+// app.use('/users', users);
+app.use('/logIn', logIn);
 app.use('/signUp', signUp);
 
 // catch 404 and forward to error handler
