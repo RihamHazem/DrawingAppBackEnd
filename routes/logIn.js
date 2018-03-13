@@ -13,11 +13,16 @@ router.post('/', function(req, res, next) {
         .where('password').equals(req.body.password)
         .exec()
         .then(function(result) {
-            console.log(result);
-            res.status(201).json({
-                message: 'Successfully found the user.',
-                foundUser: result
-            });
+            if(result.length) {
+                res.status(201).json({
+                    message: 'Successfully found the user.',
+                    foundUser: result[0]
+                });
+            } else {
+                res.status(201).json({
+                    message: 'User not found.'
+                });
+            }
         })
         .catch(function (err) {
             console.log(err);
