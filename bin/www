@@ -7,6 +7,8 @@
 var app = require('../app');
 var debug = require('debug')('backend:server');
 var http = require('http');
+var usernames = {};
+var rooms = ['Lobby'];
 
 /**
  * Get port from environment and store in Express.
@@ -20,6 +22,7 @@ app.set('port', port);
  */
 
 var server = http.createServer(app);
+const io = require('socket.io').listen(server);
 
 /**
  * Listen on provided port, on all network interfaces.
@@ -88,3 +91,25 @@ function onListening() {
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
+
+io.on("connection", function(socket) {
+    // Log whenever a user connects
+    console.log('user connected');
+
+    // Log whenever a client disconnects from our websocket server
+    socket.on('disconnect', function(){
+        console.log('user disconnected');
+    });
+
+    // When we receive a 'message' event from our client, print out
+    // the contents of that message and then echo it back to our client
+    // using `io.emit()`
+    socket.on('message', function(message) {
+        console.log("Message Received: ", message);
+        io.emit('message', {type:'new-message', text: message});
+    });
+    socket.on('mouseState', function(message) {
+        console.log("MouseState Received: ", message);
+        io.emit('mouseState', {type:'new-message', text: message});
+    });
+});
