@@ -1,14 +1,15 @@
 const express = require('express');
 const router = express.Router();
-const app = express();
 const mongoose = require('mongoose');
 const Room = require('../models/room');
 
 router.post('/', function(req, res, next) {
-    var idd = new mongoose.Types.ObjectId();
+    let idd = new mongoose.Types.ObjectId();
     const room = new Room({
         _id: idd,
-        userId: req.body.userId
+        userId: req.body.userId,
+        boardName: req.body.boardName,
+        imagePath: ""
     });
     console.log("user:", req.body.userId);
     room.save()
@@ -24,5 +25,6 @@ router.post('/', function(req, res, next) {
             });
         });
 });
+
 
 module.exports = router;

@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const mongoose = require('mongoose');
 const User = require('../models/user');
 
 /**
@@ -34,7 +33,7 @@ router.get('/:userId', function(req, res, next) {
  * Output: a successful message
  */
 router.patch('/:userId', function(req, res, next) {
-    var msg = 'user with id: ' + req.params.userId + ' is successfully updated';
+    let msg = 'user with id: ' + req.params.userId + ' is successfully updated';
     res.status(200).json({
         message: msg
     });
@@ -46,7 +45,7 @@ router.patch('/:userId', function(req, res, next) {
  * Output: a successful message
  */
 router.delete('/:userId', function(req, res, next) {
-    var msg = 'User with id: ' + req.params.userId + ' is successfully deleted';
+    let msg = 'User with id: ' + req.params.userId + ' is successfully deleted';
     res.status(200).json({
         message: msg
     });
