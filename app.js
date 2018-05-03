@@ -9,7 +9,9 @@ const logIn = require('./routes/logIn');
 const signUp = require('./routes/signUp');
 const board = require('./routes/board');
 const saveBoard = require('./routes/saveBoard');
+const deleteBoard = require('./routes/deleteBoard');
 const getUserSaveBoards = require('./routes/getUserSavedBoards');
+const isBoardExists = require('./routes/isBoardExists');
 
 const app = express();
 
@@ -24,6 +26,7 @@ app.use(function(req, res, next) {
     res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, GET, DELETE, OPTIONS');
 
     if (res.method === "OPTIONS") {
+        console.log("OPT,...");
         res.header('Access-Control-Allow-Headers', 'PUT, POST, DELETE, PATCH, GET');
         return res.status(200).json({});
     }
@@ -36,6 +39,8 @@ app.use('/logIn', logIn);
 app.use('/signUp', signUp);
 app.use('/board', board);
 app.use('/saveBoard', saveBoard);
+app.use('/deleteBoard', deleteBoard);
+app.use('/isBoardExists', isBoardExists);
 app.use('/getUserSaveBoards', getUserSaveBoards);
 
 app.use( '/public', express.static('public') );
