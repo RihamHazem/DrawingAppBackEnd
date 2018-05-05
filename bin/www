@@ -141,6 +141,10 @@ io.on("connection", function(socket) {
         console.log(msg);
         io.sockets.in(socket.room).emit('chatMessage', msg);
     });
+    socket.on('game', function(msg){
+        console.log(msg);
+        io.sockets.emit('game', msg);
+    });
 
     socket.on('switchRoom', function(newRoom){
         // leave the current room (stored in session)

@@ -9,9 +9,9 @@ const logIn = require('./routes/logIn');
 const signUp = require('./routes/signUp');
 const board = require('./routes/board');
 const saveBoard = require('./routes/saveBoard');
+const isBoardExists = require('./routes/isBoardExists');
 const deleteBoard = require('./routes/deleteBoard');
 const getUserSaveBoards = require('./routes/getUserSavedBoards');
-const isBoardExists = require('./routes/isBoardExists');
 
 const app = express();
 
@@ -39,8 +39,8 @@ app.use('/logIn', logIn);
 app.use('/signUp', signUp);
 app.use('/board', board);
 app.use('/saveBoard', saveBoard);
-app.use('/deleteBoard', deleteBoard);
 app.use('/isBoardExists', isBoardExists);
+app.use('/deleteBoard', deleteBoard);
 app.use('/getUserSaveBoards', getUserSaveBoards);
 
 app.use( '/public', express.static('public') );

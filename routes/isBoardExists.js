@@ -5,30 +5,29 @@ const Room = require('../models/room');
 
 router.post('/', function (req, res, next) {
     let _id = req.body["boardId"];
-    if (!_id.match("/^[0-9a-fA-F]{24}$/")) {
-        res.status(200).json({
-            msg: "Not Exists"
-        });
-    }
 
-    console.log("finding board...");
+    console.log("finding board..." + _id);
     Room.findById(_id, function (err, boardInfo) {
+        if (!boardInfo)
+            return next(new Error('Could not load Document'));
         console.log("BOARD: " + boardInfo);
     })
         .then(function (result) {
-            console.log("heyooooo: " + result);
-            if (! result)
-                res.status(200).json({
+            var data = {};
+            if (! result) {
+                console.log("res: " + result);
+                data = {
                     msg: "Not Exists"
-                });
-            else
-                res.status(200).json({
+                };
+            }
+            else {
+                console.log("res2: " + result);
+                data = {
                     msg: "Exists",
                     result: result
-                });
-        })
-        .catch(function (reason) {
-            console.log("heyyyyyy: " + reason);
+                };
+            }
+            res.status(200).json(data);
         });
 });
 
